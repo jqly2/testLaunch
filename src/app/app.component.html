@@ -1,0 +1,46 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  
+  <div id="header">
+    <h1>Welcome to {{ title }}!</h1>       
+  </div>
+  
+  <hr>
+
+  <div id="taskbar">
+    <button *ngIf="spells == null"(click)=getSpells()>All Spells</button>
+  </div>
+
+  <hr>
+
+  <!-- Considering changing ngIf to hidden properties to keep DOM elements -->
+
+  <div *ngIf="spells && show; then all else home"></div>
+
+  <div class="all" *ngIf="show === true; else select">
+    <div class="cards" *ngFor="let spell of spells" [@cardAnimation]='spell.state' (click)="zoomCard(spell)">
+      <img src="assets/dnd_spells/dnd_cards/{{spell.name}}.png" alt="{{spell.name}}/WiP" height="422" width="422">
+     </div>            
+  </div>
+
+  <ng-template #select>
+    <img *ngIf="selected != {}; else all" [@cardAnimation]='selected.state' (click)="zoomCard(selected)" src="assets/dnd_spells/dnd_cards/{{selected.name}}.png" alt="{{selected.name}}/WiP" max-height="100%" max-width="100%">
+  </ng-template>
+
+  <ng-template #home>
+        <h2 *ngIf = "selected == {}">Please Specify A Query</h2>
+  </ng-template>
+
+  <ng-template #credit>
+    <h3>
+      <a href="https://www.reddit.com/r/DnD/comments/6fga8k/5eocart_spell_cards_for_400_spells_from_5th/">nBeebz</a> designed and created the following spell cards
+    </h3>
+    <p> The cards (as the icons and images used in them) are licensed under the Creative Commons License (CC BY-NC-SA 4.0). You are
+      free to modify and re-purpose them for non-commercial uses as long as you give appropriate credit, and release those derivative
+      works under the same license.
+    </p>
+  </ng-template>
+
+</div>
+
+
